@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/001-create-currency-table.sql
+  - include:
+      file: db/changelog/changes/002-create-exchange-rate-table.sql
+  - include:
+      file: db/changelog/changes/003-create-user-tables.sql
+  - include:
+      file: db/changelog/changes/004-seed-users.sql

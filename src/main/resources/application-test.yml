@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/exchange_db_test
+    username: test
+    password: test
+
+  jpa:
+    show-sql: true
+
+exchange:
+  providers:
+    frankfurter:
+      url: http://localhost:9561
+    exchangerate-api:
+      url: http://localhost:9562
+    mock-provider-1:
+      url: http://localhost:9563
+    mock-provider-2:
+      url: http://localhost:9564
+  scheduler:
+    fixed-rate: 999999999

@@ -1,0 +1,51 @@
+{
+  "mappings": [
+    {
+      "request": {
+        "method": "GET",
+        "urlPathPattern": "/api/rates.*"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "base": "USD",
+          "rates": {
+            "EUR": 0.9250,
+            "GBP": 0.7920,
+            "JPY": 150.2000,
+            "CHF": 0.8790,
+            "CAD": 1.3610,
+            "AUD": 1.5280,
+            "NZD": 1.6050,
+            "CNY": 7.2510,
+            "SEK": 10.4100,
+            "NOK": 10.6350,
+            "DKK": 6.8900,
+            "PLN": 4.0050,
+            "CZK": 22.7800,
+            "HUF": 357.2000,
+            "TRY": 30.2500,
+            "BRL": 4.9650,
+            "MXN": 17.0980,
+            "INR": 83.0500,
+            "KRW": 1318.7500,
+            "SGD": 1.3390,
+            "HKD": 7.8280,
+            "ZAR": 18.8200,
+            "THB": 35.1500,
+            "IDR": 15710.0000,
+            "MYR": 4.6920,
+            "PHP": 56.0800,
+            "ILS": 3.7180,
+            "BGN": 1.8090,
+            "RON": 4.5850,
+            "ISK": 136.9000
+          }
+        }
+      }
+    }
+  ]
+}

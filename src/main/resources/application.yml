@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: currency-exchange
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/exchange_db
+    username: app
+    password: secret
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
+  security:
+    user:
+      name: admin
+      password: admin
+
+exchange:
+  providers:
+    frankfurter:
+      url: https://api.frankfurter.dev
+    exchangerate-api:
+      url: https://open.er-api.com
+    mock-provider-1:
+      url: http://mock-provider-1:8080
+    mock-provider-2:
+      url: http://mock-provider-2:8080
+  scheduler:
+    fixed-rate: 3600000  # 1 hour in milliseconds
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+
+logging:
+  level:
+    com.gravity.exchange: INFO
+    org.springframework.security: INFO

@@ -1,0 +1,61 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: exchange-postgres
+    environment:
+      POSTGRES_DB: exchange_db
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d exchange_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  mock-provider-1:
+    image: wiremock/wiremock:latest
+    container_name: mock-provider-1
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./wiremock/provider1:/home/wiremock
+    command: ["--verbose"]
+
+  mock-provider-2:
+    image: wiremock/wiremock:latest
+    container_name: mock-provider-2
+    ports:
+      - "8082:8080"
+    volumes:
+      - ./wiremock/provider2:/home/wiremock
+    command: ["--verbose"]
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: currency-exchange-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/exchange_db
+      SPRING_DATASOURCE_USERNAME: app
+      SPRING_DATASOURCE_PASSWORD: secret
+      EXCHANGE_PROVIDERS_FRANKFURTER_URL: https://api.frankfurter.dev
+      EXCHANGE_PROVIDERS_EXCHANGERATE-API_URL: https://open.er-api.com
+      EXCHANGE_PROVIDERS_MOCK-PROVIDER-1_URL: http://mock-provider-1:8080
+      EXCHANGE_PROVIDERS_MOCK-PROVIDER-2_URL: http://mock-provider-2:8080
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mock-provider-1:
+        condition: service_started
+      mock-provider-2:
+        condition: service_started
+
+volumes:
+  postgres-data:
