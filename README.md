@@ -1,4 +1,3 @@
-Java mastery program autumn 2025
 Currency Exchange Rates Provider Service
 The Currency Exchange Rates Provider Service aims to deliver up-to-date exchange rates for a list of supported currencies. By default, the currency list is empty but can be extended using existing API endpoints (see API Documentation below). Exchange rates for the supported currencies are updated when the service starts up and then every hour using the fixer.io and other clients.
  
